@@ -3,17 +3,41 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+      html, body {
+        height: 100%;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-
+    <!--<h1>Hello World!</h1>-->
+    <!--&lt;!&ndash; All of the Node.js APIs are available in this renderer process. &ndash;&gt;-->
+    <!--We are using Node.js <script>document.write(process.versions.node)</script>,-->
+    <!--Chromium <script>document.write(process.versions.chrome)</script>,-->
+    <!--and Electron <script>document.write(process.versions.electron)</script>.-->
+    <div style="display: flex; flex-direction: row; height: 100%">
+      <div style="width: 400px; height: 100%; box-sizing: border-box; padding: 30px; background: #ccc;">
+        <webview id="browser" src="https://m.dianping.com" style="width: 100%; height: 100%"></webview>
+      </div>
+      <div style="flex: 1; height: 100%; background: yellow; display: flex; flex-direction: column;">
+        <div id="editor" style="flex: 1">
+          preserve area
+        </div>
+        <div id="dev-tools" style="height: 300px;">
+          <webview id="devtools" style="width: 100%; height: 100%; background: #fff;"></webview>
+        </div>
+      </div>
+    </div>
     <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
+        const browserView = document.getElementById('browser')
+        browserView.addEventListener('dom-ready', function() {
+            const devtoolsView = document.getElementById('devtools')
+            const browser = browserView.getWebContents();
+            browser.setDevToolsWebContents(devtoolsView.getWebContents())
+            browser.openDevTools()
+            console.log('devtools is open，but the tab "Elements" cannot show the html hierachy of the webview')
+        });
     </script>
   </body>
 </html>
