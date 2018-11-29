@@ -24,19 +24,42 @@
         <div id="editor" style="flex: 1">
           preserve area
         </div>
-        <div id="dev-tools" style="height: 300px;">
-          <webview id="devtools" style="width: 100%; height: 100%; background: #fff;"></webview>
-        </div>
       </div>
     </div>
     <script>
         const browserView = document.getElementById('browser')
         browserView.addEventListener('dom-ready', function() {
-            const devtoolsView = document.getElementById('devtools')
             const browser = browserView.getWebContents();
-            browser.setDevToolsWebContents(devtoolsView.getWebContents())
-            browser.openDevTools()
-            console.log('devtools is open，but the tab "Elements" cannot show the html hierachy of the webview')
+
+            try {
+                // works with 1.2 too
+                browser.debugger.attach('1.2');
+            } catch (err) {
+                console.log('Debugger attach failed: ', err);
+            }
+
+            const isDebuggerAttached = browser.debugger.isAttached();
+            console.log('debugger attached? ', isDebuggerAttached);
+
+            browser.debugger.on('detach', (event, reason) => {
+                 console.log('Debugger detached due to: ', reason);
+            });
+
+            // This is where the magic happens!
+            browser.debugger.sendCommand('Emulation.setTouchEmulationEnabled', {
+                enabled: true,
+                configuration: 'mobile',
+            }, (...args) => {
+                console.log(args);
+            });
+
+            console.log(`setTouchEmulationEnabled does not work??? `);
+
+
+//            console.log(`setTouchEmulationEnabled works,
+//            but when I move the mouse out of the range of the webview#browser,
+//            the mouse cursor does not return to "default" style.
+//            I just want the webview#browser to enable touch emulation, not all the browserWindow.`);
         });
     </script>
   </body>
