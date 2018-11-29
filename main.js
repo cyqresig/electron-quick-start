@@ -23,36 +23,8 @@ function createWindow () {
     mainWindow = null
   })
 
-    // Show the mainwindow when it is loaded and ready to show
-    mainWindow.once('show', () => {
-        try {
-            // works with 1.2 too
-            mainWindow.webContents.debugger.attach('1.2');
-        } catch (err) {
-                console.log('Debugger attach failed: ', err);
-            }
 
-            const isDebuggerAttached = mainWindow.webContents.debugger.isAttached();
-            console.log('debugger attached? ', isDebuggerAttached);
-
-            mainWindow.webContents.debugger.on('detach', (event, reason) => {
-                console.log('Debugger detached due to: ', reason);
-        });
-
-          // This is where the magic happens!
-          mainWindow.webContents.debugger.sendCommand('Emulation.setTouchEmulationEnabled', {
-              enabled: true,
-              configuration: 'mobile',
-          }, (...args) => {
-              console.log(args);
-          });
-
-          console.log('setTouchEmulationEnabled does not work???');
-    })
-
-
-
-   // mainWindow.webContents.openDevTools({mode: 'undocked'});
+   mainWindow.webContents.openDevTools({mode: 'undocked'});
 
 }
 

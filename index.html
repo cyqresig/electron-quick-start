@@ -21,9 +21,7 @@
         <webview id="browser" src="https://m.dianping.com" style="width: 100%; height: 100%"></webview>
       </div>
       <div style="flex: 1; height: 100%; background: yellow; display: flex; flex-direction: column;">
-        <div id="editor" style="flex: 1">
-          preserve area
-        </div>
+        <div id="editor" style="flex: 1;cursor: default;overflow: auto;"><div> scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br>scroll area <br><br><br><br></div></div>
       </div>
     </div>
     <script>
@@ -53,13 +51,10 @@
                 console.log(args);
             });
 
-            console.log(`setTouchEmulationEnabled does not work??? `);
-
-
-//            console.log(`setTouchEmulationEnabled works,
-//            but when I move the mouse out of the range of the webview#browser,
-//            the mouse cursor does not return to "default" style.
-//            I just want the webview#browser to enable touch emulation, not all the browserWindow.`);
+            console.log(`setTouchEmulationEnabled works,
+            but when I move the mouse out of the range of the webview#browser,
+            the mouse cursor does not return to "default" style.
+            I just want the webview#browser to enable touch emulation, not all the browserWindow.`);
         });
     </script>
   </body>
